@@ -1,27 +1,42 @@
 package model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Entity
-@Table(name="ProductDetails")
 public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int pId;
-	@Column(name="ProductName")
+	@Column(name="ProductName", length=10)
 	private String pName;
 	@Column(name="ProductCost")
 	@Min(value=100)
 	@Max(value=100000)
 	private String pCost;
+	
+	@OneToOne(mappedBy="parent")
+	private ProductDetail pdetail;
+	
+	@ManyToOne(targetEntity=Customer.class,cascade=CascadeType.ALL)
+	private Customer cust;
+	
+	public ProductDetail getPdetail() {
+		return pdetail;
+	}
+	public void setPdetail(ProductDetail pdetail) {
+		this.pdetail = pdetail;
+	}
 	public Product() {
 		
 	}

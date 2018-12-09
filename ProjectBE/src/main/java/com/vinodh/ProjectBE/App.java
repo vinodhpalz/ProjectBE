@@ -1,11 +1,16 @@
 package com.vinodh.ProjectBE;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.dao.CustomerDAO;
 import model.dao.ProductDAO;
 import model.entity.Customer;
 import model.entity.Product;
+import model.entity.ProductDetail;
 
 /**
  * Hello world!
@@ -15,8 +20,9 @@ public class App
 {
     public static void main( String[] args )
     {
-    	
-    	Customer c1 = new Customer("Amit",22);
+    	try
+    	{
+    	/*Customer c1 = new Customer("Amit",22);
     	CustomerDAO cd = new CustomerDAO();
     	boolean b = cd.insertCustomer(c1);
     	if(b)
@@ -26,10 +32,19 @@ public class App
         else
         {
      	   System.out.println("Not Working");
-        }
-     /*  Product p1 = new Product("Camera","10000");
-       ProductDAO pd = new ProductDAO();
-       boolean b = pd.insertProduct(p1);
+        }*/
+    	/*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	String pName = br.readLine();
+    	String pCost = br.readLine();
+    	String pFeat = br.readLine();
+    	Date d = new Date();
+     Product p1 = new Product(pName,pCost);
+     ProductDetail pd = new ProductDetail();
+     pd.setPfeatures(pFeat);
+     pd.setPdate(d);
+     pd.setParent(p1);
+       ProductDAO pda = new ProductDAO();
+       boolean b = pda.insertProduct(pd);
        if(b)
        {
     	   System.out.println("Successfully Inserted");
@@ -40,11 +55,38 @@ public class App
        }*/
     	
     	/*ProductDAO pd = new ProductDAO();
-    	List<Product> lp = pd.getProducts();
-    	for(Product p: lp)
+    	List<ProductDetail> lp = pd.getProductDetails();
+    	for(ProductDetail p: lp)
     	{
-    		System.out.println(p.getpId()+" "+p.getpCost()+" "+p.getpName());
+    		System.out.println(p.getPdid()+" "+p.getPfeatures()+" "+p.getPdate()+" "+p.getParent().getpName());
     	}*/
+    		
+    		Customer c = new Customer();
+    		c.setcName("Vinodh");
+    		c.setcAge(25);
+    		
+    		Product p1 = new Product();
+    		p1.setpName("Laptop");
+    		p1.setpCost("60000");
+    		
+    		Product p2 = new Product();
+    		p2.setpName("HeadSet");
+    		p2.setpCost("4000");
+    		
+    		List<Product> l = new ArrayList<Product>();
+    		l.add(p1);
+    		l.add(p2);
+    		
+    		c.setProducts(l);
+    		
+    		CustomerDAO cd = new CustomerDAO();
+    		cd.insertCustomer(c);
+    		
+    	}
+    	catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
 
     }
 }

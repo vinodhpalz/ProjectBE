@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import config.DbConfig;
 import config.HibernateUtil;
 import model.entity.Product;
+import model.entity.ProductDetail;
 
 public class ProductDAO {
 	
@@ -21,13 +22,13 @@ public class ProductDAO {
 
 	}
 	
-		public boolean insertProduct(Product p)
+		public boolean insertProduct(ProductDetail p1)
 		{
 			boolean b = true;
 			try
 			{
 				ts = sess.beginTransaction();
-				sess.save(p);
+				sess.save(p1);
 				ts.commit();
 			}catch(Exception ex)
 			{
@@ -65,6 +66,20 @@ public class ProductDAO {
 			}
 			return lp;
 		}	
+		
+		public List<ProductDetail> getProductDetails()
+		{
+			List<ProductDetail> lp = null;
+			try
+			{
+				sess.beginTransaction();
+				lp = sess.createQuery("from ProductDetail",ProductDetail.class).getResultList();		
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			return lp;
+		}
 		
 		public boolean deleteProduct(Product p)
 		{

@@ -13,6 +13,7 @@ import org.hibernate.cfg.Environment;
 
 import model.entity.Customer;
 import model.entity.Product;
+import model.entity.ProductDetail;
 
 public class HibernateUtil {
 
@@ -32,7 +33,7 @@ public class HibernateUtil {
 				settings.put(Environment.USER, "sa");
 				settings.put(Environment.PASS, "sa@123");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
-				settings.put(Environment.HBM2DDL_AUTO, "update");
+				settings.put(Environment.HBM2DDL_AUTO, "create");
 				settings.put(Environment.SHOW_SQL, "true");
 				
 				registryBuilder.applySettings(settings);
@@ -42,6 +43,7 @@ public class HibernateUtil {
 				MetadataSources sources = new MetadataSources(registry);
 				
 				sources.addAnnotatedClass(Product.class);
+				sources.addAnnotatedClass(ProductDetail.class);
 				sources.addAnnotatedClass(Customer.class);
 				
 				Metadata md = sources.getMetadataBuilder().build();
